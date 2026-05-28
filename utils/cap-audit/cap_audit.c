@@ -109,6 +109,19 @@
 struct audit_state state;
 int audit_machine = -1;
 
+static char *make_path_candidate(const char *dir, size_t dir_len,
+				 const char *target, size_t target_len)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__read_only__, 1, 2))
+	__attr_access ((__read_only__, 3))
+	__wur;
+static char *resolve_target_command(const char *target)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__read_only__, 1))
+	__wur;
+
 static void sig_handler(int sig __attribute__((unused)))
 {
 	state.stop = 1;

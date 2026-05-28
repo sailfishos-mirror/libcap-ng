@@ -14,7 +14,7 @@
 
 #include <stddef.h>
 #include <sys/types.h>
-#include "proc-attrs.h"
+#include "gcc-attributes.h"
 
 void proc_format_account_name_from_euid(int euid, char *account,
 					size_t account_len)

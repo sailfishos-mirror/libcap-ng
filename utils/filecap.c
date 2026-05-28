@@ -40,6 +40,17 @@
 static int show_all = 0, header = 0, capabilities = 0, cremove = 0;
 static int single_file = 0;
 
+static int check_file(const char *fpath, const struct stat *sb,
+		      int typeflag_unused, struct FTW *s_unused)
+	__attr_access ((__read_only__, 1))
+	__attr_access ((__read_only__, 2));
+static int scan_path_entry(const char *entry, void *data)
+	__attr_access ((__read_only__, 1))
+	__attr_access ((__read_write__, 2));
+static int scan_path_env(const char *path_env, int nftw_flags)
+	__attr_access ((__read_only__, 1))
+	__wur;
+
 static void usage(void)
 {
 	fprintf(stderr,

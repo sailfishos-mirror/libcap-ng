@@ -239,9 +239,40 @@ static size_t bt_adapters_n;
 static int bt_adapters_loaded;
 #endif
 
-static void free_process(struct process_info *p);
-static void free_endpoint(struct endpoint *e);
-static int str_is_bdaddr(const char *s);
+static void free_process(struct process_info *p)
+	__attr_access ((__read_write__, 1));
+static void free_endpoint(struct endpoint *e)
+	__attr_access ((__read_write__, 1));
+static int str_is_bdaddr(const char *s)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+static char *xstrdup(const char *s)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__read_only__, 1))
+	__wur;
+static int vec_grow(void **v, size_t *cap, size_t item)
+	__attr_access ((__read_write__, 1))
+	__attr_access ((__read_write__, 2))
+	__wur;
+static char *read_first_line(const char *path)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__read_only__, 1))
+	__wur;
+static char *extract_unit_from_cgroup(int pid)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__wur;
+static char *caps_summary_for_pid(int pid, int *privileged, int *has_amb,
+				  int *has_bnd, char **amb_list)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__write_only__, 2))
+	__attr_access ((__write_only__, 3))
+	__attr_access ((__write_only__, 4))
+	__attr_access ((__write_only__, 5))
+	__wur;
 
 static int use_color;
 

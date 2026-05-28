@@ -66,6 +66,15 @@ static char *tacct = NULL;
 #define NETCAP_TESTABLE static
 #endif
 
+#ifdef HAVE_NETCAP_ADVANCED
+#if defined(HAVE_NETCAP_VSOCK) || defined(NETCAP_TEST)
+NETCAP_TESTABLE int parse_u32_hex_or_dec(const char *s, unsigned int *out)
+	__attr_access ((__read_only__, 1))
+	__attr_access ((__write_only__, 2))
+	__wur;
+#endif
+#endif
+
 #ifndef NETCAP_NO_MAIN
 /*
  * utility_logic_test only exercises parse_u32_hex_or_dec(). Keep the rest

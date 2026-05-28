@@ -12,8 +12,13 @@
 #ifndef FILECAP_PATH_H
 #define FILECAP_PATH_H
 
-typedef int (*filecap_path_cb)(const char *entry, void *data);
+#include "gcc-attributes.h"
 
-int filecap_foreach_path(const char *path_env, filecap_path_cb cb, void *data);
+typedef int (*filecap_path_cb)(const char *entry, void *data)
+	__attr_access ((__read_only__, 1));
+
+int filecap_foreach_path(const char *path_env, filecap_path_cb cb, void *data)
+	__attr_access ((__read_only__, 1))
+	__wur;
 
 #endif

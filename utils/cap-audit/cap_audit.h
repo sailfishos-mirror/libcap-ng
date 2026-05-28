@@ -34,6 +34,7 @@
 #include "cap-ng.h"
 #include "classify_app.h"
 #include "cap_audit.skel.h"
+#include "../gcc-attributes.h"
 
 #ifndef CAP_OPT_NOAUDIT
 #define CAP_OPT_NOAUDIT 0x2
@@ -117,26 +118,51 @@ struct audit_state {
 extern struct audit_state state;
 extern int audit_machine;
 
-int handle_cap_event(void *ctx, void *data, size_t data_sz);
+int handle_cap_event(void *ctx, void *data, size_t data_sz)
+	__attr_access ((__read_only__, 2));
 void analyze_capabilities(void);
 void output_json(void);
 void output_yaml(void);
 int include_cap_in_recommendations(int cap);
-const char *cap_name_safe(int cap);
+const char *cap_name_safe(int cap) __returns_nonnull;
 const char *syscall_name_from_nr(int nr);
-void read_sysctl(const char *path, int *value);
-void read_system_state(struct app_caps *app);
-int resolve_target_exe(pid_t pid, char *exepath, size_t exepath_len);
+void read_sysctl(const char *path, int *value)
+	__attr_access ((__read_only__, 1))
+	__attr_access ((__write_only__, 2));
+void read_system_state(struct app_caps *app)
+	__attr_access ((__read_write__, 1));
+int resolve_target_exe(pid_t pid, char *exepath, size_t exepath_len)
+	__attr_access ((__write_only__, 2, 3))
+	__wur;
 int inspect_target_file_caps(pid_t pid);
-char *json_escape(const char *input);
-void update_reason_to(char **target, int syscall_nr);
-void update_reason(struct cap_check *check, int syscall_nr);
-void update_reason_op(struct cap_check *check, int syscall_nr);
-int cap_required_union(const struct cap_check *check);
-unsigned long cap_total_checks(const struct cap_check *check);
-unsigned long cap_total_granted(const struct cap_check *check);
-unsigned long cap_total_denied(const struct cap_check *check);
-const char *cap_union_reason(const struct cap_check *check);
-type_t classify_app(const char *exe);
+char *json_escape(const char *input)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__attr_access ((__read_only__, 1))
+	__wur;
+void update_reason_to(char **target, int syscall_nr)
+	__attr_access ((__read_write__, 1));
+void update_reason(struct cap_check *check, int syscall_nr)
+	__attr_access ((__read_write__, 1));
+void update_reason_op(struct cap_check *check, int syscall_nr)
+	__attr_access ((__read_write__, 1));
+int cap_required_union(const struct cap_check *check)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+unsigned long cap_total_checks(const struct cap_check *check)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+unsigned long cap_total_granted(const struct cap_check *check)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+unsigned long cap_total_denied(const struct cap_check *check)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+const char *cap_union_reason(const struct cap_check *check)
+	__attr_access ((__read_only__, 1))
+	__attribute_pure__;
+type_t classify_app(const char *exe)
+	__attr_access ((__read_only__, 1))
+	__wur;
 
 #endif

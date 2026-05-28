@@ -57,6 +57,15 @@ struct proc_info {
 	char *caps_text;
 };
 
+static int append_marker(char **text, const char *marker)
+	__attr_access ((__read_write__, 1))
+	__attr_access ((__read_only__, 2))
+	__wur;
+static char *format_caps(int caps, bool ambient, bool bounds)
+	__attribute_malloc__
+	__attr_dealloc_free
+	__wur;
+
 /*
  * read_euid - read one process effective UID from procfs.
  * @pid: process ID whose status file should be inspected.

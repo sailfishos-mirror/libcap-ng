@@ -13,7 +13,7 @@
 #define PROC_STATUS_H
 
 #include <sys/types.h>
-#include "proc-attrs.h"
+#include "gcc-attributes.h"
 
 #define PROC_STATUS_NAME_LEN 64
 
@@ -31,6 +31,7 @@ struct proc_status {
 };
 
 int proc_read_status(pid_t pid, struct proc_status *status)
-	__attr_access ((__write_only__, 2));
+	__attr_access ((__write_only__, 2))
+	__wur;
 
 #endif

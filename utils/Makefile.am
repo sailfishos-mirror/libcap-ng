@@ -27,6 +27,7 @@ SUBDIRS = test cap-audit
 DIST_SUBDIRS = test cap-audit
 EXTRA_DIST = pscap.8 filecap.8 netcap.8.in captest.c captest.8 \
 	libcap-ng.bash_completion
+noinst_HEADERS = gcc-attributes.h
 AM_CPPFLAGS = -I${top_srcdir} -I${top_srcdir}/src
 LDADD = ${top_builddir}/src/libcap-ng.la
 AM_CFLAGS = -W -Wall -Wshadow ${WFLAGS} -Wundef -D_GNU_SOURCE
@@ -35,12 +36,12 @@ bin_PROGRAMS = pscap netcap filecap
 man_MANS = pscap.8 netcap.8 filecap.8
 bashcompletiondir = ${datadir}/bash-completion/completions
 
-pscap_SOURCES = pscap.c proc-account.c proc-account.h proc-attrs.h \
+pscap_SOURCES = pscap.c proc-account.c proc-account.h \
 	proc-output.c proc-output.h proc-sanitize.c proc-sanitize.h \
 	proc-status.c proc-status.h
 netcap_SOURCES = netcap.c netcap-advanced.h proc-llist.c \
-	proc-llist.h proc-account.c proc-account.h proc-attrs.h \
-	proc-sanitize.c proc-sanitize.h
+	proc-llist.h proc-account.c proc-account.h proc-sanitize.c \
+	proc-sanitize.h
 if BUILD_NETCAP_ADVANCED
 netcap_SOURCES += netcap-advanced.c proc-output.c proc-output.h \
 	proc-status.c proc-status.h
