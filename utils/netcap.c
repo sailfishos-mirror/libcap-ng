@@ -31,6 +31,7 @@
 #include <linux/netlink.h>
 #include <linux/sock_diag.h>
 #ifdef HAVE_NETCAP_VSOCK
+#include <sys/socket.h>
 #include <linux/vm_sockets.h>
 #ifdef HAVE_LINUX_VM_SOCKETS_DIAG_H
 #include <linux/vm_sockets_diag.h>
